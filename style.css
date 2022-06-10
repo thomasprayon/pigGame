@@ -66,3 +66,6 @@ section {
 .hidden {
     display: none;
 }
+.player-winner {
+    background-color: #5fad56;
+}

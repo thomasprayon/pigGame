@@ -1,4 +1,4 @@
-// Pig game project.  Players take turns to roll a single dice as many time as they want, adding all the numbers to a total. Unless the player gets a 1. In this case, the player looses every gained score and it's next players turn. Each player, if they are lucky in not rolling a 1 can hold their total points, and gives the dice to the other player.
+'use strict';
 
 const btnNewGame = document.querySelector('.btn--newgame');
 const btnHold = document.querySelector('.btn--hold');
@@ -14,7 +14,7 @@ const player2 = document.querySelector('.player-1');
 let activePlayer = 0;
 let currentScore = 0;
 let scores = [0, 0];
-
+let playing = true;
 player1.classList.add('current-playing');
 
 const rollDice = function () {
@@ -32,35 +32,68 @@ const switchPlayer = () => {
 };
 
 btnRollDice.addEventListener('click', () => {
-    const rollingDice = rollDice();
+    if (playing) {
+        const rollingDice = rollDice();
 
-    //Initial behaviour
-    getDice.classList.remove('hidden');
-    getDice.src = `/dices/dice-${rollingDice}.png`;
+        //Initial behaviour
+        getDice.classList.remove('hidden');
+        getDice.src = `/dices/dice-${rollingDice}.png`;
 
-    //What happens after
-    console.log(rollingDice);
-    if (rollingDice >= 1) {
-        currentScore += rollingDice;
-        console.log('activePlayer', activePlayer);
-        if (activePlayer === 0) {
-            currentScore1.textContent = currentScore;
-        } else {
-            currentScore2.textContent = currentScore;
+        //What happens after
+        console.log('rollingDice', rollingDice);
+        if (rollingDice >= 1) {
+            currentScore += rollingDice;
+            console.log('activePlayer:', activePlayer + 1);
+            if (activePlayer === 0) {
+                currentScore1.textContent = currentScore;
+            } else {
+                currentScore2.textContent = currentScore;
+            }
+        }
+        if (rollingDice === 1) {
+            console.log('switch player');
+            switchPlayer();
         }
     }
-    if (rollingDice === 1) {
-        console.log('switch player');
-        switchPlayer();
-    }
-});
-
-btnNewGame.addEventListener('click', () => {
-    scores = [0, 0];
-    currentScore = 0;
-    activePlayer = 0;
 });
 
 btnHold.addEventListener('click', () => {
-    console.log('');
+    console.log('activePLayer in Button Hold', activePlayer);
+    scores[activePlayer] += currentScore;
+    if (scores[activePlayer] >= 10) {
+        console.log('activePlayer btnHold', activePlayer);
+        playing = false;
+        if (activePlayer === 0) {
+            player1.classList.remove('current-playing');
+            player1.classList.add('player-winner');
+        } else {
+            player2.classList.remove('current-playing');
+            player2.classList.add('player-winner');
+        }
+    } else if (activePlayer === 0) {
+        score1.textContent = scores[activePlayer];
+        switchPlayer();
+    } else {
+        score2.textContent = scores[activePlayer];
+        switchPlayer();
+    }
+
+    console.log('scores: ', (scores[activePlayer] += currentScore));
+    console.log('SCORES:', scores);
+});
+
+btnNewGame.addEventListener('click', () => {
+    playing = true;
+    scores = [0, 0];
+    currentScore = 0;
+    activePlayer = 0;
+    score1.textContent = 0;
+    score2.textContent = 0;
+    currentScore1.textContent = 0;
+    currentScore2.textContent = 0;
+    player1.classList.add('current-playing');
+    player2.classList.remove('current-playing');
+    getDice.classList.add('hidden');
+    player1.classList.remove('player-winner');
+    player2.classList.remove('player-winner');
 });
