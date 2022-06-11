@@ -44,45 +44,47 @@ const switchPlayer = () => {
     player2.classList.toggle('current-playing');
 };
 
-function checkWinner(player) {
-    let winner, currentPlaying, topScore;
+const checkWinner = player => {
+    let winner, currentPlaying;
     winner = player.classList.add('player-winner');
     currentPlaying = player.classList.remove('current-playing');
     return winner, currentPlaying;
-}
+};
+
+const playerCurrentScore = current => {
+    return (current.textContent = currentScore);
+};
+
+const updateScore = player => {
+    return (player.textContent = scores[activePlayer]);
+};
 
 btnRollDice.addEventListener('click', () => {
     if (playing) {
         const rollingDice = rollDice();
         getDice.classList.remove('hidden');
         getDice.src = `/dices/dice-${rollingDice}.png`;
-        if (rollingDice >= 1) {
+        if (rollingDice !== 1) {
             currentScore += rollingDice;
-            if (activePlayer === 0) {
-                currentScore1.textContent = currentScore;
-            } else {
-                currentScore2.textContent = currentScore;
-            }
-        }
-        if (rollingDice === 1) {
-            console.log('switch player');
+            activePlayer === 0
+                ? playerCurrentScore(currentScore1)
+                : playerCurrentScore(currentScore2);
+        } else {
             switchPlayer();
         }
     }
 });
 
 btnHold.addEventListener('click', () => {
-    console.log('activePLayer in Button Hold', activePlayer);
     scores[activePlayer] += currentScore;
     if (scores[activePlayer] >= 100) {
-        console.log('activePlayer btnHold', activePlayer);
         playing = false;
         activePlayer === 0 ? checkWinner(player1) : checkWinner(player2);
     } else if (activePlayer === 0) {
-        score1.textContent = scores[activePlayer];
+        updateScore(score1);
         switchPlayer();
     } else {
-        score2.textContent = scores[activePlayer];
+        updateScore(score2);
         switchPlayer();
     }
 });
