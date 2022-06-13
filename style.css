@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@800&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background-color: #b4436c;
+    color: #230c0f;
+    position: relative;
+    font-family: 'Bebas Neue', cursive;
+    font-family: 'Open Sans', sans-serif;
+}
+section {
+    height: 75vh;
+    width: 50vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fdb498;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.player-0,
+.player-1 {
+    height: inherit;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.current-score {
+    height: 5rem;
+    width: 10rem;
+    text-align: center;
+    margin-top: 15rem;
+    border-radius: 10px;
+}
+
+.current-playing {
+    background-color: #ff8250;
+    transition: all 200ms ease-in-out;
+    border-radius: 10px;
+}
+.current-score {
+    background-color: #a95bb2;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+p {
+    font-size: 26px;
+}
+
+.buttons {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: inherit;
+}
+.btn {
+    background-color: #f2c14e;
+    font-size: 1rem;
+    outline: 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 0;
+    transition: all 0.3s ease 0s;
+    border-radius: 10px;
+    font-family: inherit;
+}
+.btn:hover {
+    box-shadow: inset 0 0 0 5px #be8500;
+    opacity: 0.8;
+}
+.btn:active {
+    transform: translateY(5px);
+}
+.btn--newgame {
+    margin-top: 30px;
+}
+.btn--hold {
+    margin-bottom: 30px;
+}
+.img-dice {
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    top: 25%;
+    left: 10%;
+}
+.hidden {
+    display: none;
+}
+.player-winner {
+    background-color: #5fad56;
+    border-radius: 10px;
+}
