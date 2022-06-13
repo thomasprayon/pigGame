@@ -80,6 +80,9 @@ btnHold.addEventListener('click', () => {
     if (scores[activePlayer] >= 100) {
         playing = false;
         activePlayer === 0 ? checkWinner(player1) : checkWinner(player2);
+        document
+            .querySelector(`.player-${activePlayer}`)
+            .classList.add('player-winner');
     } else if (activePlayer === 0) {
         updateScore(score1);
         switchPlayer();
